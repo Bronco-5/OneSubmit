@@ -13,6 +13,10 @@ function imageGallery() {
 
 imageGallery();
 
+function popup() {
+  alert("You have successfully applied");
+}
+
 /* function imageGallery2() {
 	const highlight = document.querySelector(".gallery-highlight2");
 	const previews = document.querySelectorAll(".room-preview2 img");
