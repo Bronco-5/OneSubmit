@@ -6,7 +6,10 @@ body {
 }
 
 form {
-    background-image: linear-gradient(rgba(255,255,255,0.75),rgba(255,255,255,0.75)), url('https://media.equityapartments.com/images/q_50/f_auto/fl_lossy/4011-28/moda-apartments-exterior');
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ), url('https://media.equityapartments.com/images/q_50/f_auto/fl_lossy/4011-28/moda-apartments-exterior');
     height: 100vh;
     border: 1px solid black;
     display: flex;
@@ -17,7 +20,8 @@ form {
     background-size: cover; 
     background-position: center center; 
     background-repeat: no-repeat;
-    background-attachment: fixed; 
+    background-attachment: fixed;
+    color: white; 
 }
 
 
