@@ -27,32 +27,32 @@
   <table>
    <tr>
     <td>Name :</td>
-    <td><input type="text" name="name" placeholder="John Doe"></td>
+    <td><input type="text" id="name" name="name" placeholder="John Doe"></td>
    </tr>
    <tr>
     <td>Email Address :</td>
-    <td><input type="email" name="email" placeholder="fakeemail@gmail.com"></td>
+    <td><input type="email" id="email" name="email" placeholder="fakeemail@gmail.com"></td>
    </tr>
 
    <tr>
     <td>Income :</td>
-    <td><input type="number" name="income" min="0" step="500" value="20000"></td>
+    <td><input type="number" id="income" name="income" min="0" step="500" value="20000"></td>
    </tr>
 
    <tr>
     <td>Credit Score :</td>
-    <td><input type="number" name="credit" min="0" max="850" ></td>
+    <td><input type="number" id="credit" name="credit" min="0" max="850" ></td>
     </tr>
 
 
    <tr>
         <td>Phone Number :</td>
-        <td><input type="tel" name="phone" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="310-123-4567"></td>
+        <td><input type="tel" id="phone" name="phone" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="310-123-4567"></td>
     </tr>
 
    <tr>
         <td>Date of Birth :</td>
-        <td><input type="date" name="bday"></td>
+        <td><input type="date" id="bday" name="bday"></td>
        </tr>
    
    <tr>
@@ -64,22 +64,23 @@
  <script type ="text/javascript">
     AWS.config.update({
         region: "us-east-1",
-        endpoint: 'http://localhost:8000',
-        // accessKeyId default can be used while using the downloadable version of DynamoDB. 
-        // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
-        accessKeyId: "",
-        // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
-        // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
-        secretAccessKey: ""
+        endpoint: "https://dynamodb.us-east-1.amazonaws.com",
+        accessKeyId: "AKIA5XHKEQSR4PX4FQPE",
+        secretAccessKey: "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"
     });
     var docClient = new AWS.DynamoDB.DocumentClient();
 
     function createItem() {
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var income = Number(document.getElementById("income").value);
+        var creditScore = Number(document.getElementById("credit").value);
+        var phone = document.getElementById("phone").value;
+        var birthday = document.getElementById("bday").value;
+
         var params = {
             TableName :"RenterInfo",
-            Item:{
-                "email": "w@gmail.com"
-            }
+            Item:{name, email, income, creditScore, phone, birthday}
         };
         docClient.put(params, function(err, data) {
             if (err) {
