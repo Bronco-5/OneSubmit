@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
   <title>Register Form</title>
   <link rel="stylesheet" href="css/application.css">
 </head>
@@ -45,7 +46,7 @@
 
 
    <tr>
-        <td>Phone # :</td>
+        <td>Phone Number :</td>
         <td><input type="tel" name="phone" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="310-123-4567"></td>
     </tr>
 
@@ -55,21 +56,39 @@
        </tr>
    
    <tr>
-    <td><input type="button" name="b1" value="save data" onClick="aa();"></td>
+    <td><input type="button" name="b1" value="save data" onClick="createItem();"></td>
    </tr>
   </table>
  </form>
 
  <script type ="text/javascript">
-    function aa(){
-        var xmlhttp;
-        xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("GET","insert.php?nm="+document.getElementById("name").value+"&em="+document.getElementById("email").value+"&inc="+document.getElementById("income").value,false);
-        xmlhttp.send(null);
+    AWS.config.update({
+        region: "us-east-1",
+        endpoint: 'http://localhost:8000',
+        // accessKeyId default can be used while using the downloadable version of DynamoDB. 
+        // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+        accessKeyId: "AKIA5XHKEQSR4PX4FQPE",
+        // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
+        // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+        secretAccessKey: ""
+    });
+    var docClient = new AWS.DynamoDB.DocumentClient();
+
+    function createItem() {
+        var params = {
+            TableName :"RenterInfo",
+            Item:{
+                "email": "w@gmail.com"
+            }
+        };
+        docClient.put(params, function(err, data) {
+            if (err) {
+                alert(`error: ${JSON.stringify(err, undefined, 2)}`);
+            } else {
+                alert("Data Saved Sucessfully!");
+            }
+        });
     }
- 
- 
- 
  </script>
 
 </main>
